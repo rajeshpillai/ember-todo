@@ -37,10 +37,16 @@
     "ember-resolver": "^2.0.3",
     "ember-source": "~2.12.0",
     "ember-welcome-page": "^2.0.2",
-    "loader.js": "^4.2.3"
+    "glob": "^4.5.3",
+    "loader.js": "^4.2.3",
+    "morgan": "^1.8.1"
   },
   "engines": {
     "node": ">= 4"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "mongodb": "^2.2.25"
+  }
 }
