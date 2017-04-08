@@ -14,8 +14,6 @@ const MongoClient = require("mongodb").MongoClient;
 
 const mongodb = require("mongodb");
 
-var url = "mongodb://localhost:27017/todo-ember";
-
 module.exports = function(app) {
   app.use(bodyParser.urlencoded({extended: true}));
 
@@ -30,7 +28,7 @@ module.exports = function(app) {
 
   var db;
 
-  var url = "mongodb://localhost:27017/ember-todo";
+  var url = "mongodb://localhost:27017/ember_todo";
 
   MongoClient.connect(url, (err, database) => {
     if (err) return console.log(err);
@@ -38,23 +36,25 @@ module.exports = function(app) {
 
     console.log("Connected to mongodb...");
 
-    app.get("/", function (req, res) {
-        var cursor = db.collection("todos")
+    app.get("/api/tasks", function (req, res) {
+        var cursor = db.collection("tasks")
             .find()
             .toArray(function(err, results) {
                 if (err) console.log(err);
                 console.log("Todos:", results);
-                res.render("index.ejs", {todos: results});
+                res.json({tasks: results});
             });
     });
 
-    app.post('/todos', (req, res) => {
-        console.log("About to save the todo: ", req.body);
-        db.collection("todos").save(req.body, (err, result) => {
+    app.post('/api/tasks', (req, res) => {
+        console.log("About to save the todo: ", req.body.task);
+
+        db.collection("tasks").save(req.body.task, (err, result) => {
             if (err) return console.log(err);
             console.log("Saved to the database!");
-            res.redirect("/");
+            res.send("OK");
         });
+
     });
 
     app.get("/edit/:id", function (req, res) {
@@ -62,7 +62,7 @@ module.exports = function(app) {
 
         var id = new mongodb.ObjectID(req.params.id);
 
-         db.collection("todos").find({_id: id}).toArray().then(function (data){
+         db.collection("tasks").find({_id: id}).toArray().then(function (data){
             console.log("todo: ", data[0]);
             var todo = data[0];
              res.render("edit.ejs", {todo: todo});
@@ -72,8 +72,8 @@ module.exports = function(app) {
 
     app.post("/update", function (req, res) {
         var id = new mongodb.ObjectID(req.body.id);
-        console.log("udpate: ", req.body.todo);
-        db.collection("todos")
+        console.log("update: ", req.body.todo);
+        db.collection("tasks")
             .update({_id:id},{name:req.body.name, todo:req.body.todo},
                 function(err, result){
                  });
@@ -84,7 +84,7 @@ module.exports = function(app) {
     app.get("/delete/:id", function (req, res) {
         console.log("deleting todo with id: ", req.params.id);
         var id = new mongodb.ObjectID(req.params.id);
-        db.collection('todos').remove({_id: id}, function(err, collection) {
+        db.collection('tasks').remove({_id: id}, function(err, collection) {
             console.log(err);
         });
         res.redirect("/");
