@@ -55,3 +55,9 @@ Specify what it takes to deploy your app.
 NOTES:
 -- MongoDB URL Local
 var url = "mongodb://localhost:27017/todos";
+
+Steps:
+------------
+ember g route tasks
+ember g route tasks/new
+ember install ember-bootstrap
