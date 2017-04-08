@@ -57,7 +57,7 @@ module.exports = function(app) {
 
     });
 
-    app.get("/edit/:id", function (req, res) {
+    app.get("/api/tasks/:id", function (req, res) {
         console.log("editing todo with id: ", req.params.id);
 
         var id = new mongodb.ObjectID(req.params.id);
@@ -65,12 +65,12 @@ module.exports = function(app) {
          db.collection("tasks").find({_id: id}).toArray().then(function (data){
             console.log("todo: ", data[0]);
             var todo = data[0];
-             res.render("edit.ejs", {todo: todo});
+             res.json({task: todo});
         });
 
     });
 
-    app.post("/update", function (req, res) {
+    app.put("/api/tasks/:id", function (req, res) {
         var id = new mongodb.ObjectID(req.body.id);
         console.log("update: ", req.body.todo);
         db.collection("tasks")

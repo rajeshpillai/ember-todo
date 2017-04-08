@@ -1,1 +1,22 @@
-{{outlet}}
+<h3>Edit Task</h3>
+<form>
+  <div class="form-group">
+    <label>Title</label>
+    {{input type="text" class="form-control" value=model.title placeholder="Add task..."}}
+  </div>
+  <div class="form-group">
+    <label>Due Date</label>
+    {{date-field value=model.date placeholder='MM/DD/YYYY'}}
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    {{textarea type="text" class="form-control" value=model.description placeholder="Describe task..."}}
+  </div>
+
+
+
+  <input type="hidden" value={{model.id}}>
+  <button {{action 'editTask' model.id}}class="btn btn-primary">Submit</button>
+
+</form>
+
