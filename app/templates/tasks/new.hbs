@@ -1,1 +1,16 @@
-New Tasks
+<form>
+  <div class="form-group">
+    <label>Title</label>
+    {{input type="text" class="form-control" value=title placeholder="Add task..."}}
+  </div>
+  <div class="form-group">
+    <label>Due Date</label>
+    {{input type="date" class="form-control" value=date placeholder="Add task..."}}
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    {{textarea type="text" class="form-control" value=description placeholder="Describe task..."}}
+  </div>
+  <button class="btn btn-primary">Submit</button>
+
+</form>
