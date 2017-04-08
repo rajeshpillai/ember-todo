@@ -9,7 +9,6 @@ export default Ember.Controller.extend({
 
       // Create a  new task with all fields
 
-
     }
   }
 });
