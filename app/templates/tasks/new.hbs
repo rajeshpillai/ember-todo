@@ -11,6 +11,6 @@
     <label>Description</label>
     {{textarea type="text" class="form-control" value=description placeholder="Describe task..."}}
   </div>
-  <button class="btn btn-primary">Submit</button>
+  <button {{action 'addTask'}}class="btn btn-primary">Submit</button>
 
 </form>
