@@ -6,7 +6,13 @@ export default Ember.Controller.extend({
       var title = this.get("title");
       var desc = this.get("description");
       var date = this.get("date");
-
+      console.log("title: ", title);
+      if (!title) {
+         Ember.run(this, function() {
+          this.set('errors', "title is required");
+        });
+        return;
+      }
       // Create a  new task with all fields
       console.log("About to save...");
       console.log("STORE:", this.store.createRecord);

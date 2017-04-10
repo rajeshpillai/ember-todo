@@ -1,14 +1,5 @@
 /* eslint-env node */
 
-// To use it create some files under `mocks/`
-// e.g. `server/mocks/ember-hamsters.js`
-//
-// module.exports = function(app) {
-//   app.get('/ember-hamsters', function(req, res) {
-//     res.send('hello');
-//   });
-// };
-
 const bodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 
@@ -76,18 +67,18 @@ module.exports = function(app) {
         db.collection("tasks")
             .update({_id:id},{name:req.body.name, todo:req.body.todo},
                 function(err, result){
-                 });
+             });
 
-        res.redirect("/");
+        res.send("OK");
     });
 
-    app.get("/delete/:id", function (req, res) {
+    app.delete("/api/tasks/:id", function (req, res) {
         console.log("deleting todo with id: ", req.params.id);
         var id = new mongodb.ObjectID(req.params.id);
         db.collection('tasks').remove({_id: id}, function(err, collection) {
             console.log(err);
         });
-        res.redirect("/");
+        res.send("OK");
     });
   });
 };
